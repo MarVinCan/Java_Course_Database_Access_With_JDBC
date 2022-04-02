@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import db.DB;
@@ -20,7 +19,7 @@ public class Program {
 
 		try {
 			conn = DB.getConnection();
-
+			/*
 			ps = conn.prepareStatement(
 					"INSERT INTO seller "
 					+ "(Name, Email, BirthDate, BaseSalary, DepartmentId)"
@@ -32,6 +31,10 @@ public class Program {
 			ps.setDate(3, new java.sql.Date(sdf.parse("22/04/1985").getTime()));
 			ps.setDouble(4, 3000.00);
 			ps.setInt(5, 4);
+			*/
+			ps = conn.prepareStatement(
+					"insert into department (Name) values ('D1'),('D2')",
+					Statement.RETURN_GENERATED_KEYS);
 			
 			int rowsAffected = ps.executeUpdate();
 			
@@ -50,9 +53,9 @@ public class Program {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
-		catch(ParseException e){
+		/*catch(ParseException e){
 			e.printStackTrace();
-		}
+		}*/
 		finally {
 			DB.closeStatement(ps);
 			DB.closeConnection();
